@@ -1164,7 +1164,7 @@
     </section>
 
     <!-- Deal -->
-    <section class="section-deal pb-[100px] max-[1200px]:pb-[70px]">
+    <!-- <section class="section-deal pb-[100px] max-[1200px]:pb-[70px]">
         <div class="bg-banner-deal w-full h-[700px] relative bg-no-repeat bg-center bg-cover max-[992px]:h-[500px] max-[360px]:h-[450px]">
             <div class="flex flex-wrap justify-between relative items-center mx-auto min-[1600px]:max-w-[1500px] min-[1400px]:max-w-[1320px] min-[1200px]:max-w-[1140px] min-[992px]:max-w-[960px] min-[768px]:max-w-[720px] min-[576px]:max-w-[540px]">
                 <div class="flex flex-wrap w-full">
@@ -1201,10 +1201,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Product banner -->
-    <section class="section-product-banner relative pb-[100px] max-[1200px]:pb-[70px]">
+    <!-- <section class="section-product-banner relative pb-[100px] max-[1200px]:pb-[70px]">
         <div class="flex flex-wrap justify-between relative items-center mx-auto min-[1600px]:max-w-[1500px] min-[1400px]:max-w-[1320px] min-[1200px]:max-w-[1140px] min-[992px]:max-w-[960px] min-[768px]:max-w-[720px] min-[576px]:max-w-[540px]">
             <div class="flex flex-wrap w-full">
                 <div class="w-full px-[12px]">
@@ -1251,10 +1251,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Top Collection Area Start -->
-    <section class="cr-product-tab cr-products pb-[100px] max-[1200px]:pb-[70px] wow fadeInUp">
+    <!-- <section class="cr-product-tab cr-products pb-[100px] max-[1200px]:pb-[70px] wow fadeInUp">
         <div class="flex flex-wrap justify-between relative items-center mx-auto min-[1600px]:max-w-[1500px] min-[1400px]:max-w-[1320px] min-[1200px]:max-w-[1140px] min-[992px]:max-w-[960px] min-[768px]:max-w-[720px] min-[576px]:max-w-[540px]">
             <div class="flex flex-wrap w-full" data-aos="fade-up" data-aos-duration="2000">
                 <div class="w-full px-[12px]">
@@ -1282,8 +1282,8 @@
             <div class="flex flex-wrap w-full mb-[-24px]" data-aos="fade-up" data-aos-duration="2000">
                 <div class="w-full max-w-full">
                     <div class="tab-content" id="myTabContent">
-                        <!-- 1st Product tab start -->
-                        <div class="tab-collection-pane" id="all">
+                        1st Product tab start
+                        <!-- <div class="tab-collection-pane" id="all">
                             <div class="flex flex-wrap w-full">
                                 <div class="min-[1200px]:w-[20%] min-[768px]:w-[33.33%] min-[576px]:w-[50%] w-full px-[12px]">
                                     <div class="product-card-2 mb-[24px]">
@@ -2054,7 +2054,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- 1st Product tab end -->
                         <!-- 2nd Product tab start -->
                         <div class="tab-collection-pane" id="womens">
@@ -4395,10 +4395,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Blog -->
-    <section class="section-blog relative pb-[100px] max-[1200px]:pb-[70px]">
+    <!-- <section class="section-blog relative pb-[100px] max-[1200px]:pb-[70px]">
         <div class="flex flex-wrap justify-between relative items-center mx-auto min-[1600px]:max-w-[1500px] min-[1400px]:max-w-[1320px] min-[1200px]:max-w-[1140px] min-[992px]:max-w-[960px] min-[768px]:max-w-[720px] min-[576px]:max-w-[540px]">
             <div class="flex flex-wrap w-full">
                 <div class="w-full px-[12px]">
@@ -4493,10 +4493,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Instagram -->
-    <section class="section-insta pb-[100px] max-[1200px]:pb-[70px]" data-aos="fade-up" data-aos-duration="2000">
+    <!-- <section class="section-insta pb-[100px] max-[1200px]:pb-[70px]" data-aos="fade-up" data-aos-duration="2000">
         <div class="flex flex-wrap justify-between relative items-center mx-auto min-[1600px]:max-w-[1500px] min-[1400px]:max-w-[1320px] min-[1200px]:max-w-[1140px] min-[992px]:max-w-[960px] min-[768px]:max-w-[720px] min-[576px]:max-w-[540px]">
             <div class="flex flex-wrap w-full px-[12px]">
                 <h2 class="hidden">@Instagram</h2>
@@ -4554,7 +4554,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Footer -->
     <footer class="footer pt-[100px] max-[1200px]:pt-[70px] bg-off-white bg-[#f7f7f8] relative border-t-[1px] border-solid border-[#e9e9e9]">
