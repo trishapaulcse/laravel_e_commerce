@@ -15,12 +15,19 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $cart = session()->get('cart', []);
-        $cart[$request->product_id] = [
-            'quantity' => $request->quantity ?? 1,
-            'price' => $request->price
-        ];
+        
+        if(isset($cart[$request->product_id])) {
+            $cart[$request->product_id]['quantity'] += $request->quantity ?? 1;
+        } else {
+            $cart[$request->product_id] = [
+                'quantity' => $request->quantity ?? 1,
+                'price' => $request->price
+            ];
+        }
+        
         session()->put('cart', $cart);
-        return redirect()->back()->with('success', 'Product added to cart');
+        $totalQty = array_sum(array_column($cart, 'quantity'));
+        return response()->json(['success' => true, 'cart_count' => $totalQty]);
     }
 
     public function remove($id)

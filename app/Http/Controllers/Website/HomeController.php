@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $categories = Category::where('status', 'active')->take(8)->get();
         $featuredProducts = Product::where('status', 'active')->latest()->take(8)->get();
-        $categories = Category::whereNull('parent_id')->where('status', 'active')->get();
-        return view('website.home', compact('featuredProducts', 'categories'));
+        return view('website.home', compact('categories', 'featuredProducts'));
     }
 }

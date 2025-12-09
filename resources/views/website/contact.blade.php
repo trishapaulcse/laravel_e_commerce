@@ -27,9 +27,9 @@
         </div>
         <div class="col-md-6">
             <h4>Get in Touch</h4>
-            <p><strong>Email:</strong> {{ Setting::get('company_email', 'info@example.com') }}</p>
-            <p><strong>Phone:</strong> {{ Setting::get('company_phone', '+880 1234567890') }}</p>
-            <p><strong>Address:</strong> {{ Setting::get('company_address', 'Dhaka, Bangladesh') }}</p>
+            <p><strong>Email:</strong> support@bookstore.com</p>
+            <p><strong>Phone:</strong> +880 1234-567890</p>
+            <p><strong>Address:</strong> Dhaka, Bangladesh</p>
         </div>
     </div>
 </div>

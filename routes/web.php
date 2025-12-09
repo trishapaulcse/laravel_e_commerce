@@ -17,15 +17,30 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
+// Dashboard redirect based on role
+Route::get('/dashboard', function() {
+    if(auth()->user()->hasRole('admin')) {
+        return redirect()->route('admin.dashboard');
+    }
+    return redirect()->route('user.dashboard');
+})->middleware('auth')->name('dashboard');
+
 // ============================================
 // WEBSITE ROUTES (Public Frontend)
 // ============================================
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('website.home');
+
+// Categories
+Route::prefix('categories')->name('website.categories.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Website\CategoryController::class, 'index'])->name('index');
+    Route::get('/{id}', [App\Http\Controllers\Website\CategoryController::class, 'show'])->name('show');
+});
 
 // Products
 Route::prefix('products')->name('website.products.')->group(function () {
     Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('/{slug}', [ProductController::class, 'show'])->name('show');
+    Route::get('/{id}', [ProductController::class, 'show'])->name('show');
 });
 
 // Cart

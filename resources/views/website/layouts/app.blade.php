@@ -3,38 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'E-Commerce')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>@yield('title', 'E-Commerce Store')</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+    function addToCart(productId, price) {
+        const qty = document.getElementById('quantity')?.value || 1;
+        fetch('{{ route('website.cart.add') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({product_id: productId, price: price, quantity: qty})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                const badge = document.getElementById('cart-count');
+                badge.textContent = data.cart_count;
+                badge.classList.remove('hidden');
+                alert('Product added to cart!');
+            }
+        });
+    }
+    
+    function buyNow(productId, price) {
+        const qty = document.getElementById('quantity')?.value || 1;
+        fetch('{{ route('website.cart.add') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({product_id: productId, price: price, quantity: qty})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                window.location.href = '{{ route('website.checkout.index') }}';
+            }
+        });
+    }
+    </script>
 </head>
-<body>
-    <nav class="bg-gray-800 text-white p-4">
-        <div class="container mx-auto flex justify-between">
-            <a href="{{ route('home') }}" class="text-xl font-bold">E-Commerce</a>
-            <div class="space-x-4">
-                <a href="{{ route('website.products.index') }}">Products</a>
-                <a href="{{ route('website.cart.index') }}">Cart</a>
-                @auth
-                    <a href="{{ route('user.dashboard') }}">Dashboard</a>
-                @else
-                    <a href="/login">Login</a>
-                @endauth
-            </div>
-        </div>
-    </nav>
-
-    <main class="container mx-auto py-8">
-        @if(session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
+<body class="bg-gray-50">
+    @include('website.layouts.header')
+    
+    <main>
         @yield('content')
     </main>
-
-    <footer class="bg-gray-800 text-white p-4 mt-8">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 E-Commerce Platform. All rights reserved.</p>
-        </div>
-    </footer>
+    
+    @include('website.layouts.footer')
 </body>
 </html>

@@ -34,13 +34,15 @@
             <div class="mb-6">
                 <span class="text-4xl font-bold text-green-600">৳{{ number_format($product->price, 2) }}</span>
             </div>
-            <form action="{{ route('website.cart.add') }}" method="POST" class="flex gap-4">
-                @csrf
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-                <input type="hidden" name="price" value="{{ $product->price }}">
-                <input type="number" name="quantity" value="1" min="1" max="{{ $product->stock }}" class="border p-2 rounded w-20">
-                <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700" {{ $product->stock == 0 ? 'disabled' : '' }}>Add to Cart</button>
-            </form>
+            <div class="flex gap-4 items-center">
+                <input type="number" id="quantity" value="1" min="1" max="{{ $product->stock }}" class="border p-2 rounded w-20">
+                <button onclick="addToCart({{ $product->id }}, {{ $product->price }})" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                    <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
+                </button>
+                <button onclick="buyNow({{ $product->id }}, {{ $product->price }})" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                    <i class="fas fa-bolt mr-2"></i>Buy Now
+                </button>
+            </div>
         </div>
     </div>
 
