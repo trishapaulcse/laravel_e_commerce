@@ -38,7 +38,7 @@
                     <i class="fas fa-crown w-5"></i><span class="ml-3">Membership</span>
                 </a>
                 <div class="border-t border-blue-500 mt-4 pt-4">
-                    <a href="{{ route('home') }}" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-blue-500 transition">
+                    <a href="{{ url('/') }}" class="flex items-center px-4 py-3 mb-2 rounded-lg hover:bg-blue-500 transition">
                         <i class="fas fa-arrow-left w-5"></i><span class="ml-3">Back to Shop</span>
                     </a>
                 </div>

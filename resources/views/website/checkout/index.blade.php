@@ -31,13 +31,24 @@
                         @auth
                         <div class="col-span-2"><label class="block mb-2">Address</label><textarea name="address" required class="w-full border rounded px-3 py-2" rows="3"></textarea></div>
                         @endauth
-                        <div><label class="block mb-2">City</label><input type="text" name="city" required class="w-full border rounded px-3 py-2"></div>
+                        <div>
+                            <label class="block mb-2">City *</label>
+                            <select name="city_id" required class="w-full border rounded px-3 py-2">
+                                <option value="">Select City</option>
+                                @foreach($cities as $city)
+                                <option value="{{ $city->id }}">
+                                    {{ $city->name }} - ৳{{ number_format($city->shipping_cost, 2) }} ({{ ucfirst($city->area_type) }})
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div><label class="block mb-2">Postal Code</label><input type="text" name="postal_code" class="w-full border rounded px-3 py-2"></div>
                     </div>
                 </div>
                 <div class="bg-white rounded-lg shadow p-6">
                     <h2 class="text-xl font-bold mb-4">Payment Method</h2>
                     <div class="space-y-3">
+                        @if($paymentMethods['bkash'])
                         <label class="flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer hover:border-pink-500 hover:bg-pink-50 transition payment-option">
                             <div class="flex items-center">
                                 <input type="radio" name="payment_method" value="bkash" required class="mr-3 w-5 h-5 text-pink-600">
@@ -49,7 +60,9 @@
                             </div>
                             <i class="fas fa-mobile-alt text-3xl text-pink-600"></i>
                         </label>
+                        @endif
                         
+                        @if($paymentMethods['nagad'])
                         <label class="flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition payment-option">
                             <div class="flex items-center">
                                 <input type="radio" name="payment_method" value="nagad" required class="mr-3 w-5 h-5 text-orange-600">
@@ -61,7 +74,9 @@
                             </div>
                             <i class="fas fa-wallet text-3xl text-orange-600"></i>
                         </label>
+                        @endif
                         
+                        @if($paymentMethods['cod'])
                         <label class="flex items-center justify-between p-4 border-2 rounded-lg cursor-pointer hover:border-green-500 hover:bg-green-50 transition payment-option">
                             <div class="flex items-center">
                                 <input type="radio" name="payment_method" value="cod" required class="mr-3 w-5 h-5 text-green-600">
@@ -72,6 +87,7 @@
                             </div>
                             <i class="fas fa-hand-holding-usd text-3xl text-green-600"></i>
                         </label>
+                        @endif
                     </div>
                     
                     <div id="payment-info" class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg hidden">
@@ -107,13 +123,25 @@
                 <h2 class="text-xl font-bold mb-4">Order Summary</h2>
                 <div class="space-y-3 mb-4">
                     @foreach($cartItems as $item)
-                    <div class="flex justify-between"><span>{{ $item->product->title }} x{{ $item->quantity }}</span><span>৳{{ number_format($item->price * $item->quantity, 2) }}</span></div>
+                    <div class="flex justify-between text-sm">
+                        <span>{{ $item['item']->title ?? $item['item']->name }} x{{ $item['quantity'] }}</span>
+                        <span>৳{{ number_format(($item['price'] - $item['discount']) * $item['quantity'], 2) }}</span>
+                    </div>
                     @endforeach
                 </div>
                 <div class="border-t pt-4 space-y-2">
-                    <div class="flex justify-between"><span>Subtotal</span><span>৳{{ number_format($subtotal, 2) }}</span></div>
-                    <div class="flex justify-between"><span>Shipping</span><span>৳{{ number_format($shipping, 2) }}</span></div>
-                    <div class="flex justify-between font-bold text-lg"><span>Total</span><span>৳{{ number_format($total, 2) }}</span></div>
+                    <div class="flex justify-between"><span>Subtotal</span><span>৳{{ number_format($calculations['subtotal'], 2) }}</span></div>
+                    @if($calculations['discount'] > 0)
+                    <div class="flex justify-between text-red-600"><span>Discount</span><span>-৳{{ number_format($calculations['discount'], 2) }}</span></div>
+                    @endif
+                    @if($calculations['coupon_discount'] > 0)
+                    <div class="flex justify-between text-red-600"><span>Coupon</span><span>-৳{{ number_format($calculations['coupon_discount'], 2) }}</span></div>
+                    @endif
+                    @if($calculations['vat'] > 0)
+                    <div class="flex justify-between"><span>VAT</span><span>৳{{ number_format($calculations['vat'], 2) }}</span></div>
+                    @endif
+                    <div class="flex justify-between"><span>Shipping</span><span>৳{{ number_format($calculations['shipping'], 2) }}</span></div>
+                    <div class="flex justify-between font-bold text-lg border-t pt-2"><span>Total</span><span>৳{{ number_format($calculations['total'], 2) }}</span></div>
                 </div>
             </div>
         </div>

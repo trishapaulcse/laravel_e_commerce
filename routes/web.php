@@ -48,13 +48,22 @@ Route::prefix('cart')->name('website.cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'add'])->name('add');
     Route::post('/{id}/update', [CartController::class, 'update'])->name('update');
-    Route::post('/{id}/remove', [CartController::class, 'remove'])->name('remove');
+    Route::delete('/{id}/remove', [CartController::class, 'remove'])->name('remove');
 });
 
 // Checkout (Guest allowed)
 Route::prefix('checkout')->name('website.checkout.')->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
+    Route::post('/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('applyCoupon');
+    Route::post('/remove-coupon', [CheckoutController::class, 'removeCoupon'])->name('removeCoupon');
+});
+
+// Wishlist (Public - can be used by guests with session)
+Route::prefix('wishlist')->name('website.wishlist.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Website\WishlistController::class, 'index'])->name('index');
+    Route::post('/add', [App\Http\Controllers\Website\WishlistController::class, 'add'])->name('add');
+    Route::delete('/{id}', [App\Http\Controllers\Website\WishlistController::class, 'remove'])->name('remove');
 });
 
 // Reviews
@@ -110,13 +119,15 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     Route::get('/memberships', [App\Http\Controllers\UserPanel\MembershipController::class, 'index'])->name('memberships');
     Route::post('/memberships/{id}/purchase', [App\Http\Controllers\UserPanel\MembershipController::class, 'purchase'])->name('memberships.purchase');
     
+
+    
+    // Order Tracking
+    Route::get('/orders/{order}/tracking', [App\Http\Controllers\UserPanel\OrderController::class, 'tracking'])->name('orders.tracking');
+    
     // Wishlist
     Route::get('/wishlist', [App\Http\Controllers\UserPanel\WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist', [App\Http\Controllers\UserPanel\WishlistController::class, 'store'])->name('wishlist.store');
     Route::delete('/wishlist/{id}', [App\Http\Controllers\UserPanel\WishlistController::class, 'destroy'])->name('wishlist.destroy');
-    
-    // Order Tracking
-    Route::get('/orders/{order}/tracking', [App\Http\Controllers\UserPanel\OrderController::class, 'tracking'])->name('orders.tracking');
 });
 
 // ============================================
@@ -150,6 +161,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
     // Brands
     Route::resource('brands', App\Http\Controllers\Admin\BrandController::class);
+    
+    // Cities
+    Route::resource('cities', App\Http\Controllers\Admin\CityController::class);
     
     // Discounts
     Route::resource('discounts', App\Http\Controllers\Admin\DiscountController::class);

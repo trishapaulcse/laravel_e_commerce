@@ -9,7 +9,7 @@
 <body>
     <nav class="bg-gray-800 text-white p-4">
         <div class="container mx-auto flex justify-between">
-            <a href="{{ route('home') }}" class="text-xl font-bold">E-Commerce</a>
+            <a href="{{ url('/') }}" class="text-xl font-bold">E-Commerce</a>
             <div class="space-x-4">
                 <a href="{{ route('website.products.index') }}">Products</a>
                 <a href="{{ route('website.cart.index') }}">Cart</a>

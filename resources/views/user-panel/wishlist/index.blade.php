@@ -7,7 +7,7 @@
     @forelse($wishlists as $wishlist)
     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition group">
         <div class="relative">
-            <img src="{{ asset($wishlist->product->image ?? 'default.jpg') }}" class="w-full h-48 object-cover" alt="{{ $wishlist->product->title }}">
+            <img src="{{ $wishlist->product->image ? asset('storage/' . $wishlist->product->image) : asset('default.jpg') }}" class="w-full h-48 object-cover" alt="{{ $wishlist->product->title }}">
             <form action="{{ route('user.wishlist.destroy', $wishlist) }}" method="POST" class="absolute top-2 right-2">
                 @csrf @method('DELETE')
                 <button type="submit" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition"><i class="fas fa-times"></i></button>

@@ -7,23 +7,32 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-    function addToCart(productId, price) {
+    function addToCart(productId, price, type = 'product') {
         const qty = document.getElementById('quantity')?.value || 1;
+        const payload = {quantity: qty, type: type};
+        if(type === 'bundle') {
+            payload.bundle_id = productId;
+        } else {
+            payload.product_id = productId;
+        }
+        
         fetch('{{ route('website.cart.add') }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify({product_id: productId, price: price, quantity: qty})
+            body: JSON.stringify(payload)
         })
         .then(res => res.json())
         .then(data => {
             if(data.success) {
                 const badge = document.getElementById('cart-count');
-                badge.textContent = data.cart_count;
-                badge.classList.remove('hidden');
-                alert('Product added to cart!');
+                if(badge) {
+                    badge.textContent = data.cart_count;
+                    badge.classList.remove('hidden');
+                }
+                alert('Added to cart!');
             }
         });
     }
@@ -42,6 +51,23 @@
         .then(data => {
             if(data.success) {
                 window.location.href = '{{ route('website.checkout.index') }}';
+            }
+        });
+    }
+    
+    function addToWishlist(productId) {
+        fetch('{{ route('website.wishlist.add') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({product_id: productId})
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                alert(data.message);
             }
         });
     }

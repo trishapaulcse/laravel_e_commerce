@@ -58,7 +58,7 @@
                 <div class="flex items-center justify-between px-6 py-4">
                     <h1 class="text-2xl font-semibold text-gray-800">@yield('title', 'Dashboard')</h1>
                     <div class="flex items-center space-x-4">
-                        <a href="{{ route('home') }}" class="text-gray-600 hover:text-gray-900"><i class="fas fa-globe"></i> View Site</a>
+                        <a href="{{ url('/') }}" class="text-gray-600 hover:text-gray-900"><i class="fas fa-globe"></i> View Site</a>
                         <div class="relative">
                             <button class="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
                                 <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}" class="w-8 h-8 rounded-full">

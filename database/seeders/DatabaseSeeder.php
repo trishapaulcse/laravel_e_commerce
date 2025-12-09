@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MembershipSeeder::class,
             BannerSeeder::class,
             PaymentGatewaySeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }

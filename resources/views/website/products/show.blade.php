@@ -31,16 +31,33 @@
                 <span class="text-sm text-gray-500">Stock:</span>
                 <span class="font-semibold {{ $product->stock > 0 ? 'text-green-600' : 'text-red-600' }}">{{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}</span>
             </div>
+            @if($product->discount_price)
+            <div class="mb-6">
+                <span class="text-4xl font-bold text-green-600">৳{{ number_format($product->discount_price, 2) }}</span>
+                <span class="text-2xl text-gray-400 line-through ml-4">৳{{ number_format($product->price, 2) }}</span>
+                <span class="ml-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">{{ round((($product->price - $product->discount_price) / $product->price) * 100) }}% OFF</span>
+            </div>
+            @else
             <div class="mb-6">
                 <span class="text-4xl font-bold text-green-600">৳{{ number_format($product->price, 2) }}</span>
             </div>
+            @endif
+            @if($product->vat_amount)
+            <div class="mb-4">
+                <span class="text-sm text-gray-500">VAT:</span>
+                <span class="font-semibold text-gray-700">৳{{ number_format($product->vat_amount, 2) }}</span>
+            </div>
+            @endif
             <div class="flex gap-4 items-center">
                 <input type="number" id="quantity" value="1" min="1" max="{{ $product->stock }}" class="border p-2 rounded w-20">
-                <button onclick="addToCart({{ $product->id }}, {{ $product->price }})" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                <button onclick="addToCart({{ $product->id }}, {{ $product->discount_price ?? $product->price }})" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
                     <i class="fas fa-shopping-cart mr-2"></i>Add to Cart
                 </button>
-                <button onclick="buyNow({{ $product->id }}, {{ $product->price }})" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
+                <button onclick="buyNow({{ $product->id }}, {{ $product->discount_price ?? $product->price }})" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700" {{ $product->stock == 0 ? 'disabled' : '' }}>
                     <i class="fas fa-bolt mr-2"></i>Buy Now
+                </button>
+                <button onclick="addToWishlist({{ $product->id }})" class="bg-red-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-600">
+                    <i class="fas fa-heart mr-2"></i>Wishlist
                 </button>
             </div>
         </div>
@@ -51,20 +68,7 @@
         <h2 class="text-2xl font-bold mb-6">Related Products</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @foreach($relatedProducts as $related)
-            <div class="border rounded-lg overflow-hidden hover:shadow-lg transition">
-                @if($related->image)
-                <img src="{{ asset('storage/' . $related->image) }}" class="w-full h-48 object-cover">
-                @else
-                <div class="w-full h-48 bg-gray-200"></div>
-                @endif
-                <div class="p-4">
-                    <h3 class="font-semibold mb-2">{{ $related->title }}</h3>
-                    <div class="flex justify-between items-center">
-                        <span class="text-lg font-bold text-green-600">৳{{ number_format($related->price, 2) }}</span>
-                        <a href="{{ route('website.products.show', $related->slug) }}" class="text-blue-600">View</a>
-                    </div>
-                </div>
-            </div>
+                @include('components.product-card', ['product' => $related])
             @endforeach
         </div>
     </div>

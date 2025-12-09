@@ -33,7 +33,7 @@
                 </a>
                 <a href="{{ route('website.cart.index') }}" class="hover:text-indigo-600 relative">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center {{ session('cart') ? '' : 'hidden' }}">{{ session('cart') ? count(session('cart')) : 0 }}</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center {{ session('cart') ? '' : 'hidden' }}">{{ session('cart') ? array_sum(array_column(session('cart'), 'quantity')) : 0 }}</span>
                 </a>
             </div>
         </div>

@@ -44,9 +44,13 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($featuredProducts as $product)
             <div class="bg-white rounded-lg shadow hover:shadow-xl transition">
-                <img src="{{ $product->image ?? 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg">
+                <a href="{{ route('website.products.show', $product->slug) }}">
+                    <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg hover:opacity-90 transition">
+                </a>
                 <div class="p-4">
-                    <h3 class="font-semibold mb-2 truncate">{{ $product->title }}</h3>
+                    <a href="{{ route('website.products.show', $product->slug) }}" class="hover:text-indigo-600">
+                        <h3 class="font-semibold mb-2 truncate">{{ $product->title }}</h3>
+                    </a>
                     <p class="text-gray-600 text-sm mb-3">{{ $product->brand->name ?? 'Unknown' }}</p>
                     @if($product->discount_price)
                     <div class="mb-2">
@@ -82,7 +86,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             @forelse($featuredProducts->take(4) as $product)
             <div class="bg-white rounded-lg shadow hover:shadow-xl transition">
-                <img src="{{ $product->image ?? 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg">
+                <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg">
                 <div class="p-4">
                     <h3 class="font-semibold mb-2 truncate">{{ $product->title }}</h3>
                     <p class="text-gray-600 text-sm mb-3">{{ $product->brand->name ?? 'Unknown' }}</p>
@@ -134,7 +138,7 @@
             @forelse($featuredProducts->take(4) as $product)
             <div class="bg-white rounded-lg shadow hover:shadow-xl transition">
                 <div class="relative">
-                    <img src="{{ $product->image ?? 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg">
+                    <img src="{{ $product->image ? asset('storage/' . $product->image) : 'https://via.placeholder.com/300x400' }}" alt="{{ $product->title }}" class="w-full h-64 object-cover rounded-t-lg">
                     <span class="absolute top-2 left-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Hot</span>
                 </div>
                 <div class="p-4">
