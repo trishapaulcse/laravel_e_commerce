@@ -26,7 +26,7 @@
         <div class="bg-white p-4 rounded shadow">
             <h3 class="font-bold mb-2">{{ $product->title }}</h3>
             <p class="text-gray-600 mb-2">${{ $product->price }}</p>
-            <a href="{{ route('products.show', $product->slug) }}" class="text-blue-600 hover:underline">View Details</a>
+            <a href="{{ route('website.products.show', $product->slug) }}" class="text-blue-600 hover:underline">View Details</a>
         </div>
         @endforeach
     </div>

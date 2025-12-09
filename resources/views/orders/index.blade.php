@@ -32,7 +32,7 @@
                         </span>
                     </td>
                     <td>
-                        <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-primary">View</a>
+                        <a href="{{ route('user.orders.show', $order) }}" class="btn btn-sm btn-primary">View</a>
                     </td>
                 </tr>
                 @endforeach
@@ -41,7 +41,7 @@
         {{ $orders->links() }}
         @else
         <div class="alert alert-info">
-            You haven't placed any orders yet. <a href="{{ route('products.index') }}">Browse our products</a>.
+            You haven't placed any orders yet. <a href="{{ route('website.products.index') }}">Browse our products</a>.
         </div>
         @endif
     </div>

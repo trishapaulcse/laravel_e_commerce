@@ -4,7 +4,7 @@
     <h1>Contact Us</h1>
     <div class="row mt-4">
         <div class="col-md-6">
-            <form action="{{ route('contact.store') }}" method="POST">
+            <form action="{{ route('website.contact.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label>Name</label>

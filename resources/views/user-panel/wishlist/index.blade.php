@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <h5>{{ $wishlist->product->title }}</h5>
                     <p>{{ $wishlist->product->selling_price }} BDT</p>
-                    <a href="{{ route('products.show', $wishlist->product) }}" class="btn btn-primary btn-sm">View</a>
+                    <a href="{{ route('website.products.show', $wishlist->product->slug) }}" class="btn btn-primary btn-sm">View</a>
                     <form action="{{ route('user.wishlist.destroy', $wishlist) }}" method="POST" class="d-inline">
                         @csrf @method('DELETE')
                         <button class="btn btn-danger btn-sm">Remove</button>

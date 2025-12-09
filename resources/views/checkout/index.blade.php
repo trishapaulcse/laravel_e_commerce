@@ -49,7 +49,7 @@
                 <h4>Payment Information</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('checkout.store') }}" method="POST">
+                <form action="{{ route('website.checkout.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Name on Card</label>

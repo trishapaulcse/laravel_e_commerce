@@ -14,8 +14,10 @@
         <p>Category: {{ $product->category->name }}</p>
         @endif
 
-        <form action="{{ route('cart.add', $product) }}" method="POST" class="mt-4">
+        <form action="{{ route('website.cart.add') }}" method="POST" class="mt-4">
             @csrf
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="price" value="{{ $product->price }}">
             <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
         </form>
     </div>

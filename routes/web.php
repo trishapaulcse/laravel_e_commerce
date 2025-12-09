@@ -5,47 +5,65 @@ use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\ProductController;
 use App\Http\Controllers\Website\CartController;
 use App\Http\Controllers\Website\CheckoutController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+
+// ============================================
+// AUTH ROUTES
+// ============================================
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
 
 // ============================================
 // WEBSITE ROUTES (Public Frontend)
 // ============================================
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+
+// Products
+Route::prefix('products')->name('website.products.')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/{slug}', [ProductController::class, 'show'])->name('show');
+});
 
 // Cart
-Route::prefix('cart')->name('cart.')->group(function () {
+Route::prefix('cart')->name('website.cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
     Route::post('/add', [CartController::class, 'add'])->name('add');
-    Route::delete('/{id}', [CartController::class, 'remove'])->name('remove');
+    Route::post('/{id}/update', [CartController::class, 'update'])->name('update');
+    Route::post('/{id}/remove', [CartController::class, 'remove'])->name('remove');
 });
 
 // Checkout
-Route::middleware('auth')->prefix('checkout')->name('checkout.')->group(function () {
+Route::middleware('auth')->prefix('checkout')->name('website.checkout.')->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
 });
 
 // Reviews
-Route::middleware('auth')->post('/reviews', [App\Http\Controllers\Website\ReviewController::class, 'store'])->name('reviews.store');
+Route::middleware('auth')->post('/reviews', [App\Http\Controllers\Website\ReviewController::class, 'store'])->name('website.reviews.store');
 
 // Payment
-Route::middleware('auth')->prefix('payment')->name('payment.')->group(function () {
+Route::middleware('auth')->prefix('payment')->name('website.payment.')->group(function () {
     Route::post('/{orderId}/process', [App\Http\Controllers\Website\PaymentController::class, 'process'])->name('process');
     Route::get('/bkash/callback', [App\Http\Controllers\Website\PaymentController::class, 'bkashCallback'])->name('bkash.callback');
     Route::get('/nagad/callback', [App\Http\Controllers\Website\PaymentController::class, 'nagadCallback'])->name('nagad.callback');
 });
 
 // CMS Pages
-Route::get('/page/{slug}', [App\Http\Controllers\Website\PageController::class, 'show'])->name('page.show');
+Route::get('/page/{slug}', [App\Http\Controllers\Website\PageController::class, 'show'])->name('website.page.show');
 
 // Blog
-Route::get('/blogs', [App\Http\Controllers\Website\BlogController::class, 'index'])->name('blogs.index');
-Route::get('/blogs/{slug}', [App\Http\Controllers\Website\BlogController::class, 'show'])->name('blogs.show');
+Route::prefix('blogs')->name('website.blogs.')->group(function () {
+    Route::get('/', [App\Http\Controllers\Website\BlogController::class, 'index'])->name('index');
+    Route::get('/{slug}', [App\Http\Controllers\Website\BlogController::class, 'show'])->name('show');
+});
 
 // Contact
-Route::get('/contact', [App\Http\Controllers\Website\ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [App\Http\Controllers\Website\ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact', [App\Http\Controllers\Website\ContactController::class, 'index'])->name('website.contact');
+Route::post('/contact', [App\Http\Controllers\Website\ContactController::class, 'store'])->name('website.contact.store');
 
 // ============================================
 // USER PANEL ROUTES (Customer Dashboard)

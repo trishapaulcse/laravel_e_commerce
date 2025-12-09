@@ -13,7 +13,7 @@
                     <h5 class="card-title">{{ $blog->title }}</h5>
                     <p class="card-text">{{ Str::limit(strip_tags($blog->content), 150) }}</p>
                     <p class="text-muted small">{{ $blog->published_at->format('d M Y') }}</p>
-                    <a href="{{ route('blogs.show', $blog->slug) }}" class="btn btn-primary">Read More</a>
+                    <a href="{{ route('website.blogs.show', $blog->slug) }}" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         </div>

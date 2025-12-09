@@ -29,14 +29,14 @@
                     </td>
                     <td>${{ number_format($item['price'], 2) }}</td>
                     <td>
-                        <form action="{{ route('cart.update', $item['product_id']) }}" method="POST" class="d-inline">
+                        <form action="{{ route('website.cart.update', $item['product_id']) }}" method="POST" class="d-inline">
                             @csrf
                             <input type="number" name="quantity" value="{{ $item['quantity'] }}" min="1" class="form-control d-inline" style="width: 70px;">
                         </form>
                     </td>
                     <td>${{ number_format($item['price'] * $item['quantity'], 2) }}</td>
                     <td>
-                        <form action="{{ route('cart.remove', $item['product_id']) }}" method="POST" class="d-inline">
+                        <form action="{{ route('website.cart.remove', $item['product_id']) }}" method="POST" class="d-inline">
                             @csrf
                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                         </form>
@@ -56,15 +56,15 @@
 
 <div class="row">
     <div class="col-12 text-end">
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">Continue Shopping</a>
-        <a href="{{ route('checkout.index') }}" class="btn btn-primary">Proceed to Checkout</a>
+        <a href="{{ route('website.products.index') }}" class="btn btn-secondary">Continue Shopping</a>
+        <a href="{{ route('website.checkout.index') }}" class="btn btn-primary">Proceed to Checkout</a>
     </div>
 </div>
 @else
 <div class="row">
     <div class="col-12">
         <div class="alert alert-info">
-            Your cart is empty. <a href="{{ route('products.index') }}">Browse our products</a>.
+            Your cart is empty. <a href="{{ route('website.products.index') }}">Browse our products</a>.
         </div>
     </div>
 </div>

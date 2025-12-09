@@ -5,7 +5,7 @@
     <h1 class="text-3xl font-bold mb-6">Select Payment Method</h1>
     
     <div class="bg-white p-6 rounded shadow">
-        <form action="{{ route('payment.process', $order->id) }}" method="POST">
+        <form action="{{ route('website.payment.process', $order->id) }}" method="POST">
             @csrf
             
             <div class="space-y-4">
