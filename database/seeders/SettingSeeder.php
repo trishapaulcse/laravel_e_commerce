@@ -11,23 +11,23 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             // Company Information
-            ['key' => 'company_name', 'value' => 'E-Commerce Store'],
-            ['key' => 'company_email', 'value' => 'info@ecommerce.com'],
-            ['key' => 'company_phone', 'value' => '+880 1234567890'],
-            ['key' => 'company_address', 'value' => 'Dhaka, Bangladesh'],
+            ['key' => 'company_name', 'value' => 'Gordon Strickland Associates'],
+            ['key' => 'company_email', 'value' => 'dopibohyw@mailinator.com'],
+            ['key' => 'company_phone', 'value' => 'Hays and Cantu Associates'],
+            ['key' => 'company_address', 'value' => 'Obrien Fisher Co'],
             
             // Social Media
-            ['key' => 'facebook_url', 'value' => 'https://facebook.com'],
-            ['key' => 'twitter_url', 'value' => 'https://twitter.com'],
-            ['key' => 'instagram_url', 'value' => 'https://instagram.com'],
+            ['key' => 'facebook_url', 'value' => 'https://www.daxuxunytobizo.cc'],
+            ['key' => 'twitter_url', 'value' => 'https://www.najicogylitemeg.com.au'],
+            ['key' => 'instagram_url', 'value' => 'https://www.puvejoliwuvi.co.uk'],
             
             // Email Configuration
-            ['key' => 'smtp_host', 'value' => 'smtp.gmail.com'],
-            ['key' => 'smtp_port', 'value' => '587'],
-            ['key' => 'smtp_username', 'value' => ''],
+            ['key' => 'smtp_host', 'value' => 'Molestiae dolor veli'],
+            ['key' => 'smtp_port', 'value' => 'Consectetur eaque e'],
+            ['key' => 'smtp_username', 'value' => 'felidaja'],
             
             // SMS Configuration
-            ['key' => 'sms_api_key', 'value' => ''],
+            ['key' => 'sms_api_key', 'value' => 'In cillum deleniti r'],
             
             // Tax & Shipping
             ['key' => 'vat_percentage', 'value' => '5'],
@@ -39,14 +39,14 @@ class SettingSeeder extends Seeder
             ['key' => 'payment_nagad_active', 'value' => '1'],
             ['key' => 'payment_cod_active', 'value' => '1'],
             
-            // bKash API
+            // bKash API Configuration
             ['key' => 'bkash_app_key', 'value' => ''],
             ['key' => 'bkash_app_secret', 'value' => ''],
             ['key' => 'bkash_username', 'value' => ''],
             ['key' => 'bkash_password', 'value' => ''],
             ['key' => 'bkash_sandbox', 'value' => '1'],
             
-            // Nagad API
+            // Nagad API Configuration
             ['key' => 'nagad_merchant_id', 'value' => ''],
             ['key' => 'nagad_merchant_number', 'value' => ''],
             ['key' => 'nagad_public_key', 'value' => ''],
