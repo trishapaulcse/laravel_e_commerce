@@ -92,6 +92,12 @@ class BundleController extends Controller
         return redirect()->route('admin.bundles.index')->with('success', 'Bundle updated successfully');
     }
 
+    public function show($id)
+    {
+        $bundle = Bundle::with('items')->findOrFail($id);
+        return view('admin.bundles.show', compact('bundle'));
+    }
+
     public function destroy($id)
     {
         Bundle::findOrFail($id)->delete();

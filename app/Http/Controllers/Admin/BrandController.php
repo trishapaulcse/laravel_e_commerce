@@ -22,13 +22,22 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required|string|max:255']);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|max:2048'
+        ]);
 
-        Brand::create([
+        $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'status' => $request->status ?? 'active'
-        ]);
+        ];
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('brands', 'public');
+        }
+
+        Brand::create($data);
 
         return redirect()->route('admin.brands.index')->with('success', 'Brand created successfully');
     }
@@ -39,15 +48,31 @@ class BrandController extends Controller
         return view('admin.brands.edit', compact('brand'));
     }
 
+    public function show($id)
+    {
+        $brand = Brand::with('products')->findOrFail($id);
+        return view('admin.brands.show', compact('brand'));
+    }
+
     public function update(Request $request, $id)
     {
-        $request->validate(['name' => 'required|string|max:255']);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'logo' => 'nullable|image|max:2048'
+        ]);
 
-        Brand::findOrFail($id)->update([
+        $brand = Brand::findOrFail($id);
+        $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'status' => $request->status ?? 'active'
-        ]);
+        ];
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('brands', 'public');
+        }
+
+        $brand->update($data);
 
         return redirect()->route('admin.brands.index')->with('success', 'Brand updated successfully');
     }
