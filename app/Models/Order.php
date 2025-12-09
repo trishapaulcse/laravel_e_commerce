@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'total_amount',
+        'total',
         'payment_method',
         'status',
         'shipping_address',
@@ -42,5 +42,10 @@ class Order extends Model
     public function trackings()
     {
         return $this->hasMany(OrderTracking::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

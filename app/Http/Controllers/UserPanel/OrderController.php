@@ -24,4 +24,24 @@ class OrderController extends Controller
         $order = auth()->user()->orders()->with('trackings')->findOrFail($id);
         return view('user-panel.orders.tracking', compact('order'));
     }
+
+    public function invoice($id)
+    {
+        $order = auth()->user()->orders()->with('items.product')->findOrFail($id);
+        return view('user-panel.orders.invoice', compact('order'));
+    }
+
+    public function downloadInvoice($id)
+    {
+        $order = auth()->user()->orders()->with('items.product')->findOrFail($id);
+        $pdf = \PDF::loadView('user-panel.orders.invoice-pdf', compact('order'));
+        return $pdf->download('invoice-'.$order->id.'.pdf');
+    }
+
+    public function emailInvoice($id)
+    {
+        $order = auth()->user()->orders()->with('items.product')->findOrFail($id);
+        \Mail::to(auth()->user()->email)->send(new \App\Mail\InvoiceMail($order));
+        return redirect()->back()->with('success', 'Invoice sent to your email');
+    }
 }

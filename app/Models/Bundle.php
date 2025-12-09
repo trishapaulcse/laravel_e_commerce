@@ -10,6 +10,11 @@ class Bundle extends Model
 
     public function items()
     {
+        return $this->hasMany(\App\Models\BundleItem::class);
+    }
+
+    public function products()
+    {
         return $this->belongsToMany(Product::class, 'bundle_items')->withPivot('quantity');
     }
 }

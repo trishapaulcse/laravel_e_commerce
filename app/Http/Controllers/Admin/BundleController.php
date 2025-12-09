@@ -44,8 +44,11 @@ class BundleController extends Controller
         ]);
 
         if ($request->products) {
-            foreach ($request->products as $productId => $quantity) {
-                $bundle->items()->attach($productId, ['quantity' => $quantity]);
+            foreach ($request->products as $productId) {
+                $bundle->items()->create([
+                    'product_id' => $productId,
+                    'quantity' => 1
+                ]);
             }
         }
 
@@ -82,10 +85,13 @@ class BundleController extends Controller
             'status' => $request->status ?? 'active'
         ]);
 
-        $bundle->items()->detach();
+        $bundle->items()->delete();
         if ($request->products) {
-            foreach ($request->products as $productId => $quantity) {
-                $bundle->items()->attach($productId, ['quantity' => $quantity]);
+            foreach ($request->products as $productId) {
+                $bundle->items()->create([
+                    'product_id' => $productId,
+                    'quantity' => 1
+                ]);
             }
         }
 

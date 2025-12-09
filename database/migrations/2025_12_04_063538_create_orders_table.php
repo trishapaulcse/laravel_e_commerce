@@ -15,7 +15,11 @@ return new class extends Migration
     $table->id();
     $table->foreignId('user_id')->constrained();
     $table->decimal('total', 10, 2);
+    $table->string('payment_method')->nullable();
     $table->string('status')->default('pending');
+    $table->text('shipping_address')->nullable();
+    $table->text('billing_address')->nullable();
+    $table->string('tracking_code')->nullable();
     $table->timestamps();
 });
     }

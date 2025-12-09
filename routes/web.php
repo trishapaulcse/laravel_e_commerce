@@ -36,8 +36,8 @@ Route::prefix('cart')->name('website.cart.')->group(function () {
     Route::post('/{id}/remove', [CartController::class, 'remove'])->name('remove');
 });
 
-// Checkout
-Route::middleware('auth')->prefix('checkout')->name('website.checkout.')->group(function () {
+// Checkout (Guest allowed)
+Route::prefix('checkout')->name('website.checkout.')->group(function () {
     Route::get('/', [CheckoutController::class, 'index'])->name('index');
     Route::post('/', [CheckoutController::class, 'store'])->name('store');
 });
@@ -83,6 +83,9 @@ Route::middleware('auth')->prefix('user')->name('user.')->group(function () {
     // Orders
     Route::get('/orders', [App\Http\Controllers\UserPanel\OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{id}', [App\Http\Controllers\UserPanel\OrderController::class, 'show'])->name('orders.show');
+    Route::get('/orders/{id}/invoice', [App\Http\Controllers\UserPanel\OrderController::class, 'invoice'])->name('orders.invoice');
+    Route::get('/orders/{id}/invoice/download', [App\Http\Controllers\UserPanel\OrderController::class, 'downloadInvoice'])->name('orders.invoice.download');
+    Route::post('/orders/{id}/invoice/email', [App\Http\Controllers\UserPanel\OrderController::class, 'emailInvoice'])->name('orders.invoice.email');
     
     // Wallet
     Route::get('/wallet', [App\Http\Controllers\UserPanel\WalletController::class, 'index'])->name('wallet');
@@ -185,6 +188,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('logs', [App\Http\Controllers\Admin\ActivityLogController::class, 'index'])->name('logs.index');
     
     // Invoices
-    Route::get('invoices/{id}/download', [App\Http\Controllers\Admin\InvoiceController::class, 'download'])->name('invoices.download');
+    Route::get('orders/{id}/invoice', [App\Http\Controllers\Admin\OrderController::class, 'invoice'])->name('orders.invoice');
+    Route::get('orders/{id}/invoice/download', [App\Http\Controllers\Admin\OrderController::class, 'downloadInvoice'])->name('orders.invoice.download');
+    Route::post('orders/{id}/invoice/email', [App\Http\Controllers\Admin\OrderController::class, 'emailInvoice'])->name('orders.invoice.email');
 });
 

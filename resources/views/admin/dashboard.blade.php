@@ -53,6 +53,96 @@
     </div>
 </div>
 
+<!-- Order Status Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+    <div class="bg-white rounded-lg shadow p-4 border-l-4 border-yellow-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Pending</p>
+                <h4 class="text-2xl font-bold text-gray-800">{{ $pendingOrders }}</h4>
+            </div>
+            <i class="fas fa-clock text-yellow-500 text-2xl"></i>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 border-l-4 border-blue-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Processing</p>
+                <h4 class="text-2xl font-bold text-gray-800">{{ $processingOrders }}</h4>
+            </div>
+            <i class="fas fa-cog text-blue-500 text-2xl"></i>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 border-l-4 border-purple-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Shipped</p>
+                <h4 class="text-2xl font-bold text-gray-800">{{ $shippedOrders }}</h4>
+            </div>
+            <i class="fas fa-truck text-purple-500 text-2xl"></i>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 border-l-4 border-green-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Delivered</p>
+                <h4 class="text-2xl font-bold text-gray-800">{{ $deliveredOrders }}</h4>
+            </div>
+            <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-4 border-l-4 border-red-500">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-gray-600 text-sm">Cancelled</p>
+                <h4 class="text-2xl font-bold text-gray-800">{{ $cancelledOrders }}</h4>
+            </div>
+            <i class="fas fa-times-circle text-red-500 text-2xl"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Method Breakdown -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-indigo-100 text-sm">Online Payments</p>
+                <h4 class="text-3xl font-bold">{{ $onlinePayments }}</h4>
+                <p class="text-indigo-100 text-xs mt-1">bKash + Nagad</p>
+            </div>
+            <i class="fas fa-mobile-alt text-4xl opacity-50"></i>
+        </div>
+    </div>
+    <div class="bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-pink-100 text-sm">bKash</p>
+                <h4 class="text-3xl font-bold">{{ $bkashOrders }}</h4>
+            </div>
+            <i class="fas fa-wallet text-4xl opacity-50"></i>
+        </div>
+    </div>
+    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-orange-100 text-sm">Nagad</p>
+                <h4 class="text-3xl font-bold">{{ $nagadOrders }}</h4>
+            </div>
+            <i class="fas fa-money-bill-wave text-4xl opacity-50"></i>
+        </div>
+    </div>
+    <div class="bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-teal-100 text-sm">Cash on Delivery</p>
+                <h4 class="text-3xl font-bold">{{ $codOrders }}</h4>
+            </div>
+            <i class="fas fa-hand-holding-usd text-4xl opacity-50"></i>
+        </div>
+    </div>
+</div>
+
 <!-- Recent Orders & Quick Actions -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">

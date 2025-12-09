@@ -35,4 +35,24 @@ class OrderController extends Controller
         $order = Order::with('trackings')->findOrFail($id);
         return view('admin.orders.tracking', compact('order'));
     }
+
+    public function invoice($id)
+    {
+        $order = Order::with('items.product', 'user')->findOrFail($id);
+        return view('admin.orders.invoice', compact('order'));
+    }
+
+    public function downloadInvoice($id)
+    {
+        $order = Order::with('items.product', 'user')->findOrFail($id);
+        $pdf = \PDF::loadView('admin.orders.invoice-pdf', compact('order'));
+        return $pdf->download('invoice-'.$order->id.'.pdf');
+    }
+
+    public function emailInvoice($id)
+    {
+        $order = Order::with('items.product', 'user')->findOrFail($id);
+        \Mail::to($order->user->email)->send(new \App\Mail\InvoiceMail($order));
+        return redirect()->back()->with('success', 'Invoice sent to customer email');
+    }
 }

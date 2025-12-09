@@ -48,4 +48,24 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function bundleItems()
+    {
+        return $this->hasMany(BundleItem::class);
+    }
+
+    public function bundles()
+    {
+        return $this->belongsToMany(Bundle::class, 'bundle_items')->withPivot('quantity');
+    }
 }
