@@ -8,15 +8,15 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Container\Attributes\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('backendMaster');
+// })->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/about', [App\Http\Controllers\HomeController::class, 'about'])->name('about');
-Route::get('/channel', [App\Http\Controllers\HomeController::class, 'channel'])->name('channel');
-Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contact'])->name('contact');
-Route::get('/shop', [App\Http\Controllers\HomeController::class, 'shop'])->name('shop');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/channel', [HomeController::class, 'channel'])->name('channel');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/shop', [HomeController::class, 'shop'])->name('shop');
 
 
 // Products
