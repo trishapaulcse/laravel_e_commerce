@@ -10,15 +10,42 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'title',
+        'slug',
         'description',
         'price',
+        'cost_price',
+        'stock',
+        'sku',
+        'barcode',
         'image',
-        'category_id'
+        'category_id',
+        'brand_id',
+        'unit_id',
+        'status',
+        'vat_applicable',
+        'vat_type',
+        'discount_type',
+        'discount_value'
     ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

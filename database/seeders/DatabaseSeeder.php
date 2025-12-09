@@ -8,13 +8,20 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => bcrypt('password'),
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+            UnitSeeder::class,
+            BrandSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            CouponSeeder::class,
+            DiscountSeeder::class,
+            VatSeeder::class,
+            MembershipSeeder::class,
+            BannerSeeder::class,
+            PaymentGatewaySeeder::class,
         ]);
-
-        \App\Models\Category::factory(5)->create();
-        \App\Models\Product::factory(20)->create();
     }
 }

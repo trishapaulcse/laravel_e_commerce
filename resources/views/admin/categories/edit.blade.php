@@ -1,0 +1,31 @@
+@extends('admin.layouts.app')
+@section('title', 'Edit Category')
+@section('content')
+<h1 class="text-3xl font-bold mb-6">Edit Category</h1>
+<div class="bg-white p-6 rounded shadow">
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+        @csrf @method('PUT')
+        <div class="mb-4">
+            <label class="block mb-2">Name</label>
+            <input type="text" name="name" value="{{ $category->name }}" class="w-full border p-2 rounded" required>
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">Parent Category</label>
+            <select name="parent_id" class="w-full border p-2 rounded">
+                <option value="">None</option>
+                @foreach($parentCategories as $cat)
+                <option value="{{ $cat->id }}" {{ $category->parent_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">Status</label>
+            <select name="status" class="w-full border p-2 rounded">
+                <option value="active" {{ $category->status == 'active' ? 'selected' : '' }}>Active</option>
+                <option value="inactive" {{ $category->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+            </select>
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update</button>
+    </form>
+</div>
+@endsection
