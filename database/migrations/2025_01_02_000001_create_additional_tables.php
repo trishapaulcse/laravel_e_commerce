@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('type');
             $table->json('conditions')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('banner_image')->nullable();
             $table->timestamps();

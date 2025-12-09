@@ -15,6 +15,12 @@ class CategoryController extends Controller
         return view('admin.categories.index', compact('categories'));
     }
 
+    public function show($id)
+    {
+        $category = Category::with(['parent', 'children', 'products'])->findOrFail($id);
+        return view('admin.categories.show', compact('category'));
+    }
+
     public function create()
     {
         $parentCategories = Category::whereNull('parent_id')->get();
@@ -25,16 +31,23 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
+            'image' => 'nullable|image|max:2048'
         ]);
 
-        Category::create([
+        $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'parent_id' => $request->parent_id,
             'description' => $request->description,
             'status' => $request->status
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        Category::create($data);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category created successfully');
     }
@@ -50,17 +63,24 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
+            'image' => 'nullable|image|max:2048'
         ]);
 
         $category = Category::findOrFail($id);
-        $category->update([
+        $data = [
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'parent_id' => $request->parent_id,
             'description' => $request->description,
             'status' => $request->status
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('categories', 'public');
+        }
+
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully');
     }

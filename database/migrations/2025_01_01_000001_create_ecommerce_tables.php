@@ -53,8 +53,8 @@ return new class extends Migration
             $table->decimal('max_discount', 10, 2)->nullable();
             $table->integer('usage_per_user')->default(1);
             $table->integer('total_usage')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
@@ -66,8 +66,8 @@ return new class extends Migration
             $table->enum('type', ['fixed', 'percentage'])->default('percentage');
             $table->decimal('value', 10, 2);
             $table->enum('applies_to', ['item', 'category', 'bundle', 'cart'])->default('item');
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
@@ -104,8 +104,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('membership_id')->constrained()->onDelete('cascade');
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->enum('status', ['active', 'expired', 'cancelled'])->default('active');
             $table->timestamps();
         });
@@ -124,19 +124,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Bundle Items pivot table
-        Schema::create('bundle_items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('bundle_id')->constrained()->onDelete('cascade');
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity')->default(1);
-            $table->timestamps();
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('bundle_items');
         Schema::dropIfExists('bundles');
         Schema::dropIfExists('membership_users');
         Schema::dropIfExists('memberships');

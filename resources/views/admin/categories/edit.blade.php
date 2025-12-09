@@ -3,11 +3,15 @@
 @section('content')
 <h1 class="text-3xl font-bold mb-6">Edit Category</h1>
 <div class="bg-white p-6 rounded shadow">
-    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
         @csrf @method('PUT')
         <div class="mb-4">
             <label class="block mb-2">Name</label>
             <input type="text" name="name" value="{{ $category->name }}" class="w-full border p-2 rounded" required>
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">Description</label>
+            <textarea name="description" class="w-full border p-2 rounded" rows="3">{{ $category->description }}</textarea>
         </div>
         <div class="mb-4">
             <label class="block mb-2">Parent Category</label>
@@ -17,6 +21,13 @@
                 <option value="{{ $cat->id }}" {{ $category->parent_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                 @endforeach
             </select>
+        </div>
+        <div class="mb-4">
+            <label class="block mb-2">Image</label>
+            @if($category->image)
+            <img src="{{ asset('storage/' . $category->image) }}" class="w-32 h-32 object-cover mb-2">
+            @endif
+            <input type="file" name="image" class="w-full border p-2 rounded" accept="image/*">
         </div>
         <div class="mb-4">
             <label class="block mb-2">Status</label>

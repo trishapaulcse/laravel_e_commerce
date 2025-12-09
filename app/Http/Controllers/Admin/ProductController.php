@@ -14,8 +14,14 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->paginate(15);
+        $products = Product::with(['category', 'brand', 'unit'])->paginate(15);
         return view('admin.products.index', compact('products'));
+    }
+
+    public function show($id)
+    {
+        $product = Product::with(['category', 'brand', 'unit', 'reviews'])->findOrFail($id);
+        return view('admin.products.show', compact('product'));
     }
 
     public function create()
@@ -30,12 +36,14 @@ class ProductController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'sku' => 'required|unique:products,sku',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0'
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|max:2048'
         ]);
 
-        Product::create([
+        $data = [
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'category_id' => $request->category_id,
@@ -47,7 +55,13 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'description' => $request->description,
             'status' => $request->status ?? 'active'
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        Product::create($data);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully');
     }
@@ -63,15 +77,18 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $product = Product::findOrFail($id);
+        
         $request->validate([
             'title' => 'required|string|max:255',
+            'sku' => 'required|unique:products,sku,' . $id,
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
-            'stock' => 'required|integer|min:0'
+            'stock' => 'required|integer|min:0',
+            'image' => 'nullable|image|max:2048'
         ]);
 
-        $product = Product::findOrFail($id);
-        $product->update([
+        $data = [
             'title' => $request->title,
             'slug' => Str::slug($request->title),
             'category_id' => $request->category_id,
@@ -83,7 +100,13 @@ class ProductController extends Controller
             'stock' => $request->stock,
             'description' => $request->description,
             'status' => $request->status ?? 'active'
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        $product->update($data);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
     }
