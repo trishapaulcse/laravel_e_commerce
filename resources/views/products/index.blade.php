@@ -18,8 +18,10 @@
                 <p class="h5">${{ number_format($product->price, 2) }}</p>
             </div>
             <div class="card-footer bg-white">
-                <a href="{{ route('products.show', $product) }}" class="btn btn-primary">View Details</a>
-                <form action="{{ route('cart.add', $product) }}" method="POST" class="d-inline">
+                <a href="{{ route('website.products.show', $product->slug) }}" class="btn btn-primary">View Details</a>
+                <form action="{{ route('website.cart.add') }}" method="POST" class="d-inline">
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="price" value="{{ $product->price }}">
                     @csrf
                     <button type="submit" class="btn btn-success">Add to Cart</button>
                 </form>

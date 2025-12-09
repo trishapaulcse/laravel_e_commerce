@@ -11,19 +11,19 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">Laravel Shop</a>
+            <a class="navbar-brand" href="{{ url('/') }}">Laravel Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                        <a class="nav-link" href="{{ route('website.products.index') }}">Products</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                        <a class="nav-link position-relative" href="{{ route('website.cart.index') }}">
                             Cart
                             @if(count(session()->get('cart', [])))
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -34,7 +34,7 @@
                     </li>
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('orders.index') }}">My Orders</a>
+                            <a class="nav-link" href="{{ route('user.orders.index') }}">My Orders</a>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
